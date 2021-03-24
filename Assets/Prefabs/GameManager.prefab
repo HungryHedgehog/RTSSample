@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8451628499818131351
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8451628499818131345}
+  - component: {fileID: 8451628499818131344}
+  - component: {fileID: 8451628499818131346}
+  - component: {fileID: 6811412744069538222}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8451628499818131345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451628499818131351}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 209.6602, y: -14.719411, z: 282.0351}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8451628499818131344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451628499818131351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede6f6742295319499b1498d685bc1cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InputManager: {fileID: 8451628499818131346}
+  UIBoxTexture: {fileID: 2800000, guid: 11c1bed11b2a01b46a3cfe5a01597608, type: 3}
+  CollisionBoxHeight: 10
+  BoxSelectLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &8451628499818131346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451628499818131351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5013f0aa8d40e4eb598420c93d2551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6811412744069538222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451628499818131351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac153e5d8634a9d448dd0ec317c6f8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _InputManager: {fileID: 8451628499818131346}
+  UnitSelectionScript: {fileID: 8451628499818131344}
+  RaycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
