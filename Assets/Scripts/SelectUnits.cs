@@ -14,8 +14,9 @@ public class SelectUnits : MonoBehaviour
 
     HashSet<UnitController> Units = new HashSet<UnitController>();
 
+
     BoxCollider selectionBox;
-    float raydistance = 1000.0f;
+    readonly float raydistance = Mathf.Infinity;
     PlayerControls controls;
 
     bool dragAction = false;
@@ -48,6 +49,7 @@ public class SelectUnits : MonoBehaviour
             selectionBox.center = CornerA + ((CornerB -CornerA) / 2.0f);
             selectionBox.size = new Vector3(Mathf.Abs(CornerB.x - CornerA.x), CollisionBoxHeight, Mathf.Abs(CornerB.z - CornerA.z));
             selectionBox.enabled = true;
+
         } else
         {
             selectionBox.enabled = false;
@@ -61,18 +63,16 @@ public class SelectUnits : MonoBehaviour
 
     private void clickAction()
     {
+      
         p1 = controls.UI.CursorPosition.ReadValue<Vector2>();
         selectUnit();
     }
 
     private void holdAction()
-    {        
-        dragAction = true;
-        if (!multiSelect)
-        {
-            deselectUnits(Units);
-            Units.Clear();
-        }        
+    {
+
+        tryToClearAndDeselect();
+        dragAction = true; 
     }
 
     private void releaseAction()
@@ -87,36 +87,37 @@ public class SelectUnits : MonoBehaviour
      */
     private void selectUnit()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out hit, raydistance))
+        //TODO: Fix issue where Raycast ignores colliders after a while (fixed Update issue?)
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out RaycastHit hit, raydistance, -1, QueryTriggerInteraction.Ignore))
         {
+            
             Debug.Log(hit.collider.gameObject.name);
             if (hit.transform.gameObject.CompareTag("Selectable"))
             {
                 UnitController controller;
                 if (controller = hit.transform.gameObject.GetComponent<UnitController>())
-                {                   
-                    if (!multiSelect)
-                    {
-                        deselectUnits(Units);
-                        Units.Clear();
-                    }
-
+                {
+                    tryToClearAndDeselect();
                     controller.SelectUnit();
                     Units.Add(controller);
                 }
             }
             else
             {
-                if (!multiSelect)
-                {
-                    deselectUnits(Units);
-                    Units.Clear();
-                }
+                tryToClearAndDeselect();
             }
 
         }       
 
+    }
+
+    private void tryToClearAndDeselect()
+    {
+        if (!multiSelect)
+        {
+            deselectUnits(Units);
+            Units.Clear();
+        }
     }
 
 
@@ -134,8 +135,7 @@ public class SelectUnits : MonoBehaviour
 
     private Vector3 getPositionInWorld(Vector2 screenPosition)
     {
-        RaycastHit hit;
-        Physics.Raycast(Camera.main.ScreenPointToRay(screenPosition), out hit, raydistance, BoxSelectLayerMask);
+        Physics.Raycast(Camera.main.ScreenPointToRay(screenPosition), out RaycastHit hit, raydistance, BoxSelectLayerMask);
         return hit.point;
     }
 

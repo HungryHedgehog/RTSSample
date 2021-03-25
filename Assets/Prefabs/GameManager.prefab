@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _InputManager: {fileID: 8451628499818131346}
-  UnitSelectionScript: {fileID: 8451628499818131344}
+  _SelectUnits: {fileID: 8451628499818131344}
   RaycastLayerMask:
     serializedVersion: 2
     m_Bits: 256
