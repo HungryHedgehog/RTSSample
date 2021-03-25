@@ -21,17 +21,23 @@ public class CommandUnits : MonoBehaviour
 
     public void MoveToOrder()
     {
-        HashSet<UnitController> units = _SelectUnits.GetSelectedUnits();
-        if (units.Count > 0  && Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out RaycastHit hit, raydistance, RaycastLayerMask))
+        
+        IEnumerator<UnitController> unitEnumerator = _SelectUnits.GetSelectedUnits().GetEnumerator();        
+        if (unitEnumerator.MoveNext() && Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out RaycastHit hit, raydistance, RaycastLayerMask))
         {
-            if (NavMesh.SamplePosition(hit.point, out NavMeshHit navhit, navMeshValidPointRadius, -1))
+            
+            do
             {
-                foreach (UnitController uc in units)
+                if (NavMesh.SamplePosition(hit.point + Random.insideUnitSphere * unitEnumerator.Current.GetAgentRadius(), out NavMeshHit navhit, navMeshValidPointRadius, -1))
                 {
-                    uc.OrderUnitToPosition(navhit.position);
+                    unitEnumerator.Current.OrderUnitToPosition(navhit.position);                   
                 }
-            }
+                unitEnumerator.MoveNext();
+            } while(unitEnumerator.Current);
+
+
         }
+
     }
 
 }
