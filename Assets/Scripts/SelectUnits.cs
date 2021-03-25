@@ -87,26 +87,16 @@ public class SelectUnits : MonoBehaviour
      */
     private void selectUnit()
     {
-        //TODO: Fix issue where Raycast ignores colliders after a while (fixed Update issue?)
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out RaycastHit hit, raydistance, -1, QueryTriggerInteraction.Ignore))
-        {
-            
-            Debug.Log(hit.collider.gameObject.name);
-            if (hit.transform.gameObject.CompareTag("Selectable"))
-            {
+        tryToClearAndDeselect();
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(controls.UI.CursorPosition.ReadValue<Vector2>()), out RaycastHit hit, raydistance, -1, QueryTriggerInteraction.Ignore) 
+            && hit.transform.gameObject.CompareTag("Selectable"))
+        {           
                 UnitController controller;
                 if (controller = hit.transform.gameObject.GetComponent<UnitController>())
-                {
-                    tryToClearAndDeselect();
+                {                    
                     controller.SelectUnit();
                     Units.Add(controller);
                 }
-            }
-            else
-            {
-                tryToClearAndDeselect();
-            }
-
         }       
 
     }
